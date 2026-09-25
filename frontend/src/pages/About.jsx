@@ -12,9 +12,9 @@ const About = () => {
   useReveal([]);
 
   return (
-    <div className="pt-[74px]">
+    <div>
       {/* hero */}
-      <section className="relative bg-[#0B1120] text-white overflow-hidden">
+      <section className="relative bg-[#0B1120] text-white overflow-hidden pt-[74px]">
         <div className="absolute inset-0">
           <img src="https://images.unsplash.com/photo-1562155695-fb6e1f95fcfd" alt="" className="w-full h-full object-cover opacity-25" />
           <div className="absolute inset-0 bg-gradient-to-r from-[#0B1120] via-[#0B1120]/85 to-[#0B1120]/50" />

@@ -34,8 +34,8 @@ const Contact = () => {
   const inputCls = "w-full bg-white border border-slate-200 rounded-lg px-4 py-3 text-sm text-slate-800 placeholder:text-slate-400 focus:outline-none focus:border-[#E4002B] focus:ring-2 focus:ring-[#E4002B]/10 transition";
 
   return (
-    <div className="pt-[74px]">
-      <section className="bg-[#0B1120] text-white relative overflow-hidden">
+    <div>
+      <section className="bg-[#0B1120] text-white relative overflow-hidden pt-[74px]">
         <div className="absolute inset-0 grid-lines opacity-[0.07]" />
         <div className="defi-container relative py-20">
           <h1 className="font-display text-4xl lg:text-5xl font-bold">{t("contact.hero")}</h1>
@@ -67,7 +67,7 @@ const Contact = () => {
             <div className="mt-6 rounded-xl overflow-hidden border border-slate-100 h-56">
               <iframe
                 title="map"
-                src="https://www.openstreetmap.org/export/embed.html?bbox=4.85%2C45.75%2C4.92%2C45.79&layer=mapnik"
+                src="https://www.openstreetmap.org/export/embed.html?bbox=5.405%2C45.565%2C5.470%2C45.600&layer=mapnik&marker=45.5826%2C5.4375"
                 className="w-full h-full"
                 loading="lazy"
               />

@@ -17,9 +17,9 @@ const NewsDetail = () => {
   const related = news.filter((n) => n.slug !== slug).slice(0, 3);
 
   return (
-    <div className="pt-[74px]">
+    <div>
       {/* hero */}
-      <section className="relative bg-[#0B1120] text-white">
+      <section className="relative bg-[#0B1120] text-white pt-[74px]">
         <div className="absolute inset-0">
           <img src={article.image} alt="" className="w-full h-full object-cover opacity-25" />
           <div className="absolute inset-0 bg-gradient-to-t from-[#0B1120] via-[#0B1120]/85 to-[#0B1120]/70" />

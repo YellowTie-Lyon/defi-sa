@@ -7,6 +7,7 @@ import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import Home from "./pages/Home";
 import Category from "./pages/Category";
+import ProductDetail from "./pages/ProductDetail";
 import News from "./pages/News";
 import NewsDetail from "./pages/NewsDetail";
 import About from "./pages/About";
@@ -23,6 +24,7 @@ function App() {
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/equipements/:slug" element={<Category />} />
+              <Route path="/equipements/:slug/:productSlug" element={<ProductDetail />} />
               <Route path="/actualites" element={<News />} />
               <Route path="/actualites/:slug" element={<NewsDetail />} />
               <Route path="/a-propos" element={<About />} />

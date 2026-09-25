@@ -21,8 +21,8 @@ const News = () => {
   const [featured, ...rest] = filtered;
 
   return (
-    <div className="pt-[74px]">
-      <section className="bg-[#0B1120] text-white relative overflow-hidden">
+    <div>
+      <section className="bg-[#0B1120] text-white relative overflow-hidden pt-[74px]">
         <div className="absolute inset-0 grid-lines opacity-[0.07]" />
         <div className="defi-container relative py-20">
           <p className="text-[#00C2FF] font-semibold text-sm uppercase tracking-widest mb-3">{t("news.overline")}</p>

@@ -12,10 +12,33 @@ const Navbar = () => {
   const location = useLocation();
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 24);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    // Use an IntersectionObserver sentinel to detect scroll state. This is
+    // driven by the layout engine and is reliable even when scroll events or
+    // requestAnimationFrame are throttled. A tiny off-flow sentinel is placed
+    // at the very top of the document; once it scrolls out of view the navbar
+    // switches to its solid state.
+    const sentinel = document.createElement("div");
+    sentinel.setAttribute("aria-hidden", "true");
+    sentinel.style.cssText =
+      "position:absolute;top:0;left:0;width:1px;height:30px;pointer-events:none;";
+    document.body.appendChild(sentinel);
+
+    const io = new IntersectionObserver(
+      ([entry]) => setScrolled(!entry.isIntersecting),
+      { threshold: 0 }
+    );
+    io.observe(sentinel);
+
+    // Immediate sync + light scroll listener as a fast-path fallback.
+    const sync = () => setScrolled(window.scrollY > 24);
+    sync();
+    window.addEventListener("scroll", sync, { passive: true });
+
+    return () => {
+      io.disconnect();
+      sentinel.remove();
+      window.removeEventListener("scroll", sync);
+    };
   }, []);
 
   useEffect(() => {
@@ -37,10 +60,13 @@ const Navbar = () => {
 
   return (
     <header
+      style={{
+        backgroundColor: solid ? "rgba(255, 255, 255, 0.92)" : "transparent",
+      }}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         solid
-          ? "bg-white/90 backdrop-blur-md shadow-[0_2px_20px_-8px_rgba(15,23,42,0.25)]"
-          : "bg-transparent"
+          ? "backdrop-blur-md shadow-[0_2px_20px_-8px_rgba(15,23,42,0.25)]"
+          : ""
       }`}
     >
       <div className="cmyk-bar h-1 w-full" />

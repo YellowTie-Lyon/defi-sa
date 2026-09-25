@@ -14,9 +14,9 @@ const Category = () => {
   if (!category) return <Navigate to="/" replace />;
 
   return (
-    <div className="pt-[74px]">
+    <div>
       {/* header */}
-      <section className="relative bg-[#0B1120] text-white overflow-hidden">
+      <section className="relative bg-[#0B1120] text-white overflow-hidden pt-[74px]">
         <div className="absolute inset-0">
           <img src={category.image} alt="" className="w-full h-full object-cover opacity-30" />
           <div className="absolute inset-0 bg-gradient-to-r from-[#0B1120] via-[#0B1120]/85 to-[#0B1120]/50" />
@@ -58,19 +58,19 @@ const Category = () => {
           <p className="text-sm text-slate-400 mb-8">{category.products.length} {t("common.products")}</p>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-7">
             {category.products.map((p, i) => (
-              <div key={i} className="group bg-white rounded-2xl border border-slate-100 overflow-hidden hover-lift reveal" style={{ transitionDelay: `${i * 70}ms` }}>
+              <Link key={p.slug} to={`/equipements/${category.slug}/${p.slug}`} className="group bg-white rounded-2xl border border-slate-100 overflow-hidden hover-lift reveal flex flex-col" style={{ transitionDelay: `${i * 70}ms` }}>
                 <div className="h-56 overflow-hidden bg-slate-100">
                   <img src={p.image} alt={pick(p.name)} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
                 </div>
-                <div className="p-6">
-                  <h3 className="font-display text-lg font-semibold text-[#0F172A]">{pick(p.name)}</h3>
-                  <p className="text-slate-500 text-sm mt-2 leading-relaxed">{pick(p.desc)}</p>
-                  <Link to="/contact" className="inline-flex items-center gap-1.5 text-[#E4002B] text-sm font-semibold mt-4 group-hover:gap-2.5 transition-all">
-                    {t("nav.quote")}
+                <div className="p-6 flex flex-col flex-1">
+                  <h3 className="font-display text-lg font-semibold text-[#0F172A] group-hover:text-[#E4002B] transition-colors">{pick(p.name)}</h3>
+                  <p className="text-slate-500 text-sm mt-2 leading-relaxed line-clamp-2">{pick(p.desc)}</p>
+                  <span className="inline-flex items-center gap-1.5 text-[#E4002B] text-sm font-semibold mt-auto pt-4 group-hover:gap-2.5 transition-all">
+                    {t("equipment.discover")}
                     <ArrowRight size={15} />
-                  </Link>
+                  </span>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
 
