@@ -23,17 +23,24 @@ const Navbar = () => {
     setEquipOpen(false);
   }, [location.pathname]);
 
+  // solid = white background state (scrolled or mobile menu open)
+  const solid = scrolled || mobileOpen;
+
   const linkClass = ({ isActive }) =>
     `relative text-sm font-medium tracking-wide transition-colors py-2 ${
-      isActive ? "text-[#E4002B]" : "text-slate-700 hover:text-slate-900"
+      isActive
+        ? "text-[#E4002B]"
+        : solid
+        ? "text-slate-700 hover:text-slate-900"
+        : "text-white/85 hover:text-white"
     }`;
 
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled
+        solid
           ? "bg-white/90 backdrop-blur-md shadow-[0_2px_20px_-8px_rgba(15,23,42,0.25)]"
-          : "bg-white/70 backdrop-blur-sm"
+          : "bg-transparent"
       }`}
     >
       <div className="cmyk-bar h-1 w-full" />
@@ -41,7 +48,13 @@ const Navbar = () => {
         <div className="flex items-center justify-between h-[74px]">
           {/* Logo */}
           <Link to="/" className="flex items-center shrink-0">
-            <img src="/defi-logo.png" alt="DEFI" className="h-11 w-auto" />
+            <img
+              src="/defi-logo.png"
+              alt="DEFI"
+              className={`h-11 w-auto transition-all duration-300 ${
+                solid ? "" : "brightness-0 invert"
+              }`}
+            />
           </Link>
 
           {/* Desktop nav */}
@@ -55,7 +68,11 @@ const Navbar = () => {
               onMouseEnter={() => setEquipOpen(true)}
               onMouseLeave={() => setEquipOpen(false)}
             >
-              <button className="flex items-center gap-1 text-sm font-medium text-slate-700 hover:text-slate-900 py-2">
+              <button
+                className={`flex items-center gap-1 text-sm font-medium py-2 transition-colors ${
+                  solid ? "text-slate-700 hover:text-slate-900" : "text-white/85 hover:text-white"
+                }`}
+              >
                 {t("nav.equipment")}
                 <ChevronDown size={15} className={`transition-transform ${equipOpen ? "rotate-180" : ""}`} />
               </button>
@@ -94,14 +111,22 @@ const Navbar = () => {
           <div className="hidden lg:flex items-center gap-3">
             <button
               onClick={toggleLang}
-              className="flex items-center gap-1.5 text-sm font-semibold text-slate-600 hover:text-slate-900 border border-slate-200 rounded-full px-3 py-1.5 transition-colors"
+              className={`flex items-center gap-1.5 text-sm font-semibold rounded-full px-3 py-1.5 border transition-colors ${
+                solid
+                  ? "text-slate-600 hover:text-slate-900 border-slate-200"
+                  : "text-white/90 hover:text-white border-white/25 hover:bg-white/10"
+              }`}
             >
               <Globe size={15} />
               {lang === "fr" ? "EN" : "FR"}
             </button>
             <Link
               to="/contact"
-              className="inline-flex items-center gap-2 bg-[#0F172A] text-white text-sm font-semibold px-5 py-2.5 rounded-full hover:bg-[#E4002B] transition-colors duration-300"
+              className={`inline-flex items-center gap-2 text-sm font-semibold px-5 py-2.5 rounded-full transition-colors duration-300 ${
+                solid
+                  ? "bg-[#0F172A] text-white hover:bg-[#E4002B]"
+                  : "bg-white text-[#0F172A] hover:bg-[#E4002B] hover:text-white"
+              }`}
             >
               {t("nav.quote")}
               <ArrowUpRight size={16} />
@@ -112,13 +137,15 @@ const Navbar = () => {
           <div className="flex items-center gap-2 lg:hidden">
             <button
               onClick={toggleLang}
-              className="text-sm font-semibold text-slate-600 border border-slate-200 rounded-full px-2.5 py-1.5"
+              className={`text-sm font-semibold rounded-full px-2.5 py-1.5 border transition-colors ${
+                solid ? "text-slate-600 border-slate-200" : "text-white border-white/30"
+              }`}
             >
               {lang === "fr" ? "EN" : "FR"}
             </button>
             <button
               onClick={() => setMobileOpen((v) => !v)}
-              className="p-2 text-slate-800"
+              className={`p-2 transition-colors ${solid ? "text-slate-800" : "text-white"}`}
               aria-label="Menu"
             >
               {mobileOpen ? <X size={24} /> : <Menu size={24} />}
