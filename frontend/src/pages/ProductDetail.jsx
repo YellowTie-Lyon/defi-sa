@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import { useParams, Link, Navigate } from "react-router-dom";
-import { ChevronRight, Check, ArrowLeft, ArrowRight, Download } from "lucide-react";
+import { ChevronRight, Check, ArrowLeft, ArrowRight, Download, Play, X, ImageIcon } from "lucide-react";
 import { useApp } from "../context/AppContext";
 import { useReveal } from "../hooks/useReveal";
 import { findProduct, BROCHURE_URL } from "../mock/data";
@@ -10,13 +10,25 @@ const ProductDetail = () => {
   const { slug, productSlug } = useParams();
   const { t, pick } = useApp();
   const result = findProduct(slug, productSlug);
-  useReveal([slug, productSlug]);
+  const [tab, setTab] = useState("description");
+  const [modal, setModal] = useState(null); // {type:'video'|'image', ...}
+  useReveal([slug, productSlug, tab]);
 
   if (!result) return <Navigate to={`/equipements/${slug}`} replace />;
   const { category, product } = result;
 
   const related = category.products.filter((p) => p.slug !== productSlug).slice(0, 3);
-  const subjectDefault = `${t("product.requestQuote")} – ${pick(product.name)}`;
+  const subjectDefault = `${t("product.requestQuote")} \u2013 ${pick(product.name)}`;
+
+  const photos = (product.media || []).filter((m) => m.type === "image");
+  const videos = (product.media || []).filter((m) => m.type === "video");
+
+  const tabs = [
+    { id: "description", label: t("product.description") },
+    { id: "features", label: t("product.features") },
+    { id: "options", label: t("product.options") },
+    { id: "media", label: t("product.media") },
+  ];
 
   return (
     <div>
@@ -34,8 +46,8 @@ const ProductDetail = () => {
 
           <div className="grid lg:grid-cols-2 gap-10 items-center">
             <div className="reveal">
-              <div className="rounded-2xl overflow-hidden border border-white/10">
-                <img src={product.image} alt={pick(product.name)} className="w-full h-[360px] lg:h-[420px] object-cover" />
+              <div className="relative rounded-2xl overflow-hidden border border-white/10 group cursor-pointer" onClick={() => setModal({ type: "image", url: product.image })}>
+                <img src={product.image} alt={pick(product.name)} className="w-full h-[360px] lg:h-[420px] object-cover transition-transform duration-700 group-hover:scale-105" />
               </div>
             </div>
             <div className="reveal">
@@ -56,33 +68,101 @@ const ProductDetail = () => {
         </div>
       </section>
 
-      {/* overview + features + specs */}
-      <section className="py-16 bg-white">
-        <div className="defi-container grid lg:grid-cols-3 gap-10">
-          <div className="lg:col-span-2">
-            <div className="reveal">
-              <h2 className="font-display text-2xl font-bold text-[#0F172A] mb-4">{t("product.overview")}</h2>
-              <p className="text-slate-600 leading-relaxed">{pick(product.longDesc)}</p>
-            </div>
+      {/* sub-menu tabs */}
+      <section className="bg-white border-b border-slate-100 sticky top-[74px] z-30">
+        <div className="defi-container flex gap-1 overflow-x-auto">
+          {tabs.map((tb) => (
+            <button
+              key={tb.id}
+              onClick={() => setTab(tb.id)}
+              className={`relative whitespace-nowrap px-5 py-4 text-sm font-semibold transition-colors ${
+                tab === tb.id ? "text-[#E4002B]" : "text-slate-500 hover:text-slate-800"
+              }`}
+            >
+              {tb.label}
+              {tab === tb.id && <span className="absolute left-4 right-4 bottom-0 h-0.5 bg-[#E4002B] rounded-full" />}
+            </button>
+          ))}
+        </div>
+      </section>
 
-            <div className="mt-10 reveal">
-              <h3 className="font-display text-xl font-semibold text-[#0F172A] mb-5">{t("product.features")}</h3>
-              <div className="grid sm:grid-cols-2 gap-3">
-                {product.features.map((f, i) => (
-                  <div key={i} className="flex items-start gap-3 bg-slate-50 border border-slate-100 rounded-xl px-4 py-3">
-                    <span className="w-6 h-6 rounded-full bg-[#E4002B] flex items-center justify-center shrink-0 mt-0.5">
-                      <Check size={14} className="text-white" />
-                    </span>
-                    <span className="text-slate-700 text-sm">{pick(f)}</span>
-                  </div>
-                ))}
+      {/* tab content + specs sidebar */}
+      <section className="py-14 bg-white">
+        <div className="defi-container grid lg:grid-cols-3 gap-10">
+          <div className="lg:col-span-2 min-h-[220px]">
+            {tab === "description" && (
+              <div className="reveal" key="desc">
+                <h2 className="font-display text-2xl font-bold text-[#0F172A] mb-4">{t("product.description")}</h2>
+                <p className="text-slate-600 leading-relaxed">{pick(product.longDesc)}</p>
+                <p className="text-slate-600 leading-relaxed mt-4">{pick(product.desc)}</p>
               </div>
-            </div>
+            )}
+
+            {tab === "features" && (
+              <div className="reveal" key="feat">
+                <h2 className="font-display text-2xl font-bold text-[#0F172A] mb-5">{t("product.features")}</h2>
+                <div className="grid sm:grid-cols-2 gap-3">
+                  {product.features.map((f, i) => (
+                    <div key={i} className="flex items-start gap-3 bg-slate-50 border border-slate-100 rounded-xl px-4 py-3">
+                      <span className="w-6 h-6 rounded-full bg-[#E4002B] flex items-center justify-center shrink-0 mt-0.5">
+                        <Check size={14} className="text-white" />
+                      </span>
+                      <span className="text-slate-700 text-sm">{pick(f)}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {tab === "options" && (
+              <div className="reveal" key="opt">
+                <h2 className="font-display text-2xl font-bold text-[#0F172A] mb-5">{t("product.options")}</h2>
+                <ul className="divide-y divide-slate-100 border border-slate-100 rounded-2xl overflow-hidden">
+                  {product.options.map((o, i) => (
+                    <li key={i} className="flex items-center gap-4 px-5 py-4 hover:bg-slate-50 transition-colors">
+                      <span className="w-8 h-8 rounded-lg bg-[#0F172A] text-white flex items-center justify-center text-sm font-semibold shrink-0">{i + 1}</span>
+                      <span className="text-slate-700">{pick(o)}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+
+            {tab === "media" && (
+              <div className="reveal" key="media">
+                <h2 className="font-display text-2xl font-bold text-[#0F172A] mb-5">{t("product.media")}</h2>
+                {videos.length > 0 && (
+                  <div className="grid sm:grid-cols-2 gap-4 mb-5">
+                    {videos.map((v, i) => (
+                      <button key={i} onClick={() => setModal({ type: "video", youtubeId: v.youtubeId })} className="group relative rounded-2xl overflow-hidden text-left">
+                        <img src={v.thumb || product.image} alt="" className="w-full h-52 object-cover transition-transform duration-700 group-hover:scale-105" />
+                        <div className="absolute inset-0 bg-black/35 group-hover:bg-black/25 transition-colors flex items-center justify-center">
+                          <span className="w-16 h-16 rounded-full bg-white/95 flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
+                            <Play size={26} className="text-[#E4002B] ml-1" fill="#E4002B" />
+                          </span>
+                        </div>
+                        <span className="absolute bottom-3 left-4 text-white text-sm font-medium drop-shadow">{pick(v.title)}</span>
+                      </button>
+                    ))}
+                  </div>
+                )}
+                <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+                  {photos.map((ph, i) => (
+                    <button key={i} onClick={() => setModal({ type: "image", url: ph.url })} className="group relative rounded-xl overflow-hidden aspect-[4/3]">
+                      <img src={ph.url} alt="" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                      <span className="absolute inset-0 bg-[#0F172A]/0 group-hover:bg-[#0F172A]/25 transition-colors flex items-center justify-center">
+                        <ImageIcon size={22} className="text-white opacity-0 group-hover:opacity-100 transition-opacity" />
+                      </span>
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
           </div>
 
-          {/* specs */}
+          {/* specs sidebar (always visible) */}
           <div className="reveal">
-            <div className="bg-[#0F172A] rounded-2xl p-7 text-white sticky top-24">
+            <div className="bg-[#0F172A] rounded-2xl p-7 text-white sticky top-36">
               <h3 className="font-display text-lg font-semibold mb-5">{t("product.specs")}</h3>
               <dl className="divide-y divide-white/10">
                 {product.specs.map((s, i) => (
@@ -101,7 +181,7 @@ const ProductDetail = () => {
       </section>
 
       {/* quote form */}
-      <section id="devis" className="py-16 bg-slate-50 scroll-mt-24">
+      <section id="devis" className="py-16 bg-slate-50 scroll-mt-28">
         <div className="defi-container">
           <div className="grid lg:grid-cols-2 gap-10 items-start">
             <div className="reveal">
@@ -136,7 +216,7 @@ const ProductDetail = () => {
             </div>
             <div className="grid md:grid-cols-3 gap-7">
               {related.map((p, i) => (
-                <Link key={p.slug} to={`/equipements/${category.slug}/${p.slug}`} className="group bg-white rounded-2xl border border-slate-100 overflow-hidden hover-lift reveal" style={{ transitionDelay: `${i * 80}ms` }}>
+                <Link key={p.slug} to={`/equipements/${category.slug}/${p.slug}`} onClick={() => setTab("description")} className="group bg-white rounded-2xl border border-slate-100 overflow-hidden hover-lift reveal" style={{ transitionDelay: `${i * 80}ms` }}>
                   <div className="h-48 overflow-hidden">
                     <img src={p.image} alt={pick(p.name)} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
                   </div>
@@ -149,6 +229,41 @@ const ProductDetail = () => {
             </div>
           </div>
         </section>
+      )}
+
+      {/* media modal (video / image lightbox) */}
+      {modal && (
+        <div className="fixed inset-0 z-[70] bg-black/80 backdrop-blur-sm flex items-center justify-center p-4" onClick={() => setModal(null)}>
+          <button className="absolute top-5 right-5 w-11 h-11 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition-colors" onClick={() => setModal(null)} aria-label="Fermer">
+            <X size={22} />
+          </button>
+          <div className="w-full max-w-4xl" onClick={(e) => e.stopPropagation()}>
+            {modal.type === "video" ? (
+              <div>
+                <div className="relative w-full rounded-xl overflow-hidden shadow-2xl bg-black" style={{ aspectRatio: "16 / 9" }}>
+                  <iframe
+                    title="video"
+                    src={`https://www.youtube.com/embed/${modal.youtubeId}?autoplay=1&rel=0`}
+                    className="absolute inset-0 w-full h-full"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                  />
+                </div>
+                <a
+                  href={`https://www.youtube.com/watch?v=${modal.youtubeId}`}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="mt-3 inline-flex items-center gap-2 text-white/80 hover:text-white text-sm"
+                >
+                  <Play size={14} /> Ouvrir sur YouTube
+                  <ArrowRight size={14} />
+                </a>
+              </div>
+            ) : (
+              <img src={modal.url} alt="" className="w-full max-h-[85vh] object-contain rounded-xl shadow-2xl" />
+            )}
+          </div>
+        </div>
       )}
     </div>
   );

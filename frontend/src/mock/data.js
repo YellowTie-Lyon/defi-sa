@@ -481,6 +481,47 @@ export const categories = [
   },
 ];
 
+// Enrich every product with default "options/services" and media (photos + a
+// demo video) so each product page has Description / Features / Options /
+// Photos-Videos sub-sections. (Frontend mock data.)
+const DEFAULT_OPTIONS = [
+  { fr: "Installation et mise en service sur site", en: "On-site installation and commissioning" },
+  { fr: "Formation des op\u00e9rateurs \u00e0 l'utilisation", en: "Operator usage training" },
+  { fr: "Contrat de maintenance pr\u00e9ventive", en: "Preventive maintenance contract" },
+  { fr: "Pi\u00e8ces d\u00e9tach\u00e9es et consommables d'origine", en: "Genuine spare parts and consumables" },
+  { fr: "Supervision et diagnostic \u00e0 distance", en: "Remote supervision and diagnostics" },
+  { fr: "Garantie \u00e9tendue et SAV r\u00e9actif", en: "Extended warranty and responsive after-sales" },
+];
+
+const CATEGORY_VIDEOS = {
+  machines: "hlP-pujbeyo",
+  accessoires: "rKfpOafFU-c",
+  consommables: "A2DQFuoJT1E",
+  "produits-defi": "Gvz8MCzWar8",
+  "equipements-re": "A2DQFuoJT1E",
+};
+
+categories.forEach((c) => {
+  c.products.forEach((p) => {
+    if (!p.options) p.options = DEFAULT_OPTIONS;
+    if (!p.media) {
+      p.media = [
+        { type: "image", url: p.image },
+        { type: "image", url: IMG.gravure },
+        { type: "image", url: IMG.rollers },
+        { type: "image", url: IMG.cmyk },
+        { type: "image", url: IMG.press },
+        {
+          type: "video",
+          youtubeId: CATEGORY_VIDEOS[c.slug] || "hlP-pujbeyo",
+          thumb: p.image,
+          title: { fr: "Vid\u00e9o de d\u00e9monstration", en: "Demonstration video" },
+        },
+      ];
+    }
+  });
+});
+
 // Flatten helper to find a product by slug across categories
 export const findProduct = (categorySlug, productSlug) => {
   const cat = categories.find((c) => c.slug === categorySlug);
