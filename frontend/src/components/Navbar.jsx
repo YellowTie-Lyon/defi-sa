@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
-import { Menu, X, ChevronDown, ArrowUpRight, Globe } from "lucide-react";
+import { Menu, X, ChevronDown, ArrowUpRight } from "lucide-react";
 import { useApp } from "../context/AppContext";
 import { categories, BROCHURE_URL } from "../mock/data";
 
 const Navbar = () => {
-  const { t, pick, lang, toggleLang } = useApp();
+  const { t, pick } = useApp();
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [equipOpen, setEquipOpen] = useState(false);
@@ -135,17 +135,6 @@ const Navbar = () => {
 
           {/* Right actions */}
           <div className="hidden lg:flex items-center gap-3">
-            <button
-              onClick={toggleLang}
-              className={`flex items-center gap-1.5 text-sm font-semibold rounded-full px-3 py-1.5 border transition-colors ${
-                solid
-                  ? "text-slate-600 hover:text-slate-900 border-slate-200"
-                  : "text-white/90 hover:text-white border-white/25 hover:bg-white/10"
-              }`}
-            >
-              <Globe size={15} />
-              {lang === "fr" ? "EN" : "FR"}
-            </button>
             <Link
               to="/contact"
               className={`inline-flex items-center gap-2 text-sm font-semibold px-5 py-2.5 rounded-full transition-colors duration-300 ${
@@ -161,14 +150,6 @@ const Navbar = () => {
 
           {/* Mobile toggle */}
           <div className="flex items-center gap-2 lg:hidden">
-            <button
-              onClick={toggleLang}
-              className={`text-sm font-semibold rounded-full px-2.5 py-1.5 border transition-colors ${
-                solid ? "text-slate-600 border-slate-200" : "text-white border-white/30"
-              }`}
-            >
-              {lang === "fr" ? "EN" : "FR"}
-            </button>
             <button
               onClick={() => setMobileOpen((v) => !v)}
               className={`p-2 transition-colors ${solid ? "text-slate-800" : "text-white"}`}

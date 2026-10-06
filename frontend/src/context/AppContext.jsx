@@ -4,7 +4,7 @@ import { translations } from "../i18n/translations";
 const AppContext = createContext(null);
 
 export const AppProvider = ({ children }) => {
-  const [lang, setLang] = useState(() => localStorage.getItem("defi_lang") || "fr");
+  const [lang, setLang] = useState("fr");
 
   useEffect(() => {
     localStorage.setItem("defi_lang", lang);
