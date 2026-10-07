@@ -27,8 +27,8 @@ const QuoteForm = ({ subjectDefault = "", dark = false }) => {
   };
 
   const inputCls = dark
-    ? "w-full bg-white/5 border border-white/15 rounded-lg px-4 py-3 text-sm text-white placeholder:text-slate-400 focus:outline-none focus:border-[#E4002B] focus:ring-2 focus:ring-[#E4002B]/20 transition"
-    : "w-full bg-white border border-slate-200 rounded-lg px-4 py-3 text-sm text-slate-800 placeholder:text-slate-400 focus:outline-none focus:border-[#E4002B] focus:ring-2 focus:ring-[#E4002B]/10 transition";
+    ? "w-full bg-white/5 border border-white/15 rounded-lg px-4 py-3 text-sm text-white placeholder:text-slate-400 focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/20 transition"
+    : "w-full bg-white border border-slate-200 rounded-lg px-4 py-3 text-sm text-slate-800 placeholder:text-slate-400 focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/10 transition";
   const labelCls = dark ? "block text-sm font-medium text-slate-300 mb-1.5" : "block text-sm font-medium text-slate-700 mb-1.5";
 
   return (
@@ -63,7 +63,7 @@ const QuoteForm = ({ subjectDefault = "", dark = false }) => {
       <button
         type="submit"
         disabled={sending}
-        className="mt-6 inline-flex items-center gap-2 bg-[#E4002B] hover:bg-[#c40025] disabled:opacity-70 text-white font-semibold px-7 py-3.5 rounded-full transition-colors"
+        className="mt-6 inline-flex items-center gap-2 bg-accent hover:bg-accent-hover disabled:opacity-70 text-white font-semibold px-7 py-3.5 rounded-full transition-colors"
       >
         {sending ? t("contact.formSending") : t("contact.formSend")}
         <Send size={17} />

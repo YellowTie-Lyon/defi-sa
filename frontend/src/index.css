@@ -5,14 +5,14 @@
 
 body {
     margin: 0;
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-family: var(--font-body);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    background-color: #ffffff;
+    background-color: var(--color-background);
 }
 
 h1, h2, h3, h4, h5, .font-display {
-    font-family: 'Space Grotesk', 'Inter', sans-serif;
+    font-family: var(--font-display);
 }
 
 code {
@@ -21,7 +21,7 @@ code {
 }
 
 /* ===== DEFI custom utilities ===== */
-.defi-container { max-width: 1280px; margin-left: auto; margin-right: auto; padding-left: 1.5rem; padding-right: 1.5rem; }
+.defi-container { max-width: var(--container-max); margin-left: auto; margin-right: auto; padding-left: var(--space-container-x); padding-right: var(--space-container-x); }
 
 .grid-lines {
     background-image:
@@ -30,17 +30,17 @@ code {
     background-size: 46px 46px;
 }
 
-.cmyk-bar { background: linear-gradient(90deg, #00C2FF 0 25%, #FF1FB4 25% 50%, #FFD400 50% 75%, #0F172A 75% 100%); }
+.cmyk-bar { background: linear-gradient(90deg, var(--color-cmyk-cyan) 0 25%, var(--color-cmyk-magenta) 25% 50%, var(--color-cmyk-yellow) 50% 75%, var(--color-cmyk-key) 75% 100%); }
 
 .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.7s ease, transform 0.7s ease; }
 .reveal.is-visible { opacity: 1; transform: translateY(0); }
 
 .hover-lift { transition: transform 0.35s cubic-bezier(0.22,1,0.36,1), box-shadow 0.35s ease; }
-.hover-lift:hover { transform: translateY(-6px); box-shadow: 0 24px 48px -18px rgba(15,23,42,0.28); }
+.hover-lift:hover { transform: translateY(-6px); box-shadow: var(--shadow-lift); }
 
 .text-balance { text-wrap: balance; }
 
-::selection { background: #E4002B; color: #fff; }
+::selection { background: var(--color-accent); color: #fff; }
 
 /* Force navbar background when scrolled */
 header[data-solid="true"] {
@@ -79,6 +79,53 @@ header[data-solid="true"] {
         --chart-4: 43 74% 66%;
         --chart-5: 27 87% 67%;
         --radius: 0.5rem;
+
+        /* ===== DEFI DESIGN SYSTEM TOKENS (Elementor-ready) ===== */
+        /* Colors */
+        --color-primary: #0F172A;        /* main dark / ink */
+        --color-primary-deep: #0B1120;   /* hero / footer background */
+        --color-primary-foreground: #F8FAFC;
+        --color-secondary: #1E3A5F;      /* steel blue (reserved) */
+        --color-accent: #E4002B;         /* brand red */
+        --color-accent-hover: #C40025;
+        --color-accent-foreground: #FFFFFF;
+        --color-background: #FFFFFF;      /* page background */
+        --color-surface: #F8FAFC;         /* light section background */
+        --color-surface-muted: #F1F5F9;   /* secondary surface */
+        --color-border: #E2E8F0;          /* hairline borders */
+        --color-text: #0F172A;            /* primary text */
+        --color-text-muted: #64748B;      /* secondary text */
+        --color-text-subtle: #94A3B8;     /* tertiary text */
+        --color-text-inverse: #FFFFFF;    /* text on dark */
+        /* CMYK accents */
+        --color-cmyk-cyan: #00C2FF;
+        --color-cmyk-magenta: #FF1FB4;
+        --color-cmyk-yellow: #FFD400;
+        --color-cmyk-key: #0F172A;
+
+        /* Typography */
+        --font-display: 'Space Grotesk', 'Inter', sans-serif;
+        --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+        /* Radius scale */
+        --radius-sm: 0.5rem;
+        --radius-md: 0.75rem;   /* rounded-xl */
+        --radius-lg: 1rem;      /* rounded-2xl */
+        --radius-xl: 1.5rem;    /* rounded-3xl */
+        --radius-pill: 9999px;
+
+        /* Spacing scale (section rhythm) */
+        --space-section-y: 6rem;      /* py-24 */
+        --space-section-y-sm: 4rem;   /* py-16 */
+        --space-container-x: 1.5rem;  /* container padding */
+        --container-max: 1280px;
+
+        /* Shadows */
+        --shadow-sm: 0 1px 2px rgba(15,23,42,0.06);
+        --shadow-card: 0 1px 3px rgba(15,23,42,0.08);
+        --shadow-nav: 0 2px 20px -8px rgba(15,23,42,0.25);
+        --shadow-lift: 0 24px 48px -18px rgba(15,23,42,0.28);
+        --shadow-modal: 0 24px 60px -12px rgba(0,0,0,0.5);
     }
     .dark {
         --background: 0 0% 3.9%;

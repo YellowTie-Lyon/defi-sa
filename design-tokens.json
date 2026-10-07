@@ -1,0 +1,108 @@
+{
+  "$meta": {
+    "name": "DEFI Design System",
+    "description": "Centralized design tokens for the DEFI website. Values mirror the CSS variables defined in frontend/src/index.css (:root) and frontend/tailwind.config.js. Prepared for an Elementor rebuild.",
+    "version": "1.0.0",
+    "cssVarPrefix": "--color- / --font- / --radius- / --space- / --shadow-"
+  },
+
+  "color": {
+    "primary":            { "value": "#0F172A", "cssVar": "--color-primary",            "use": "Main dark / ink, dark buttons, headings on light" },
+    "primaryDeep":        { "value": "#0B1120", "cssVar": "--color-primary-deep",       "use": "Hero & footer backgrounds, dark sections" },
+    "primaryForeground":  { "value": "#F8FAFC", "cssVar": "--color-primary-foreground", "use": "Text on primary surfaces" },
+    "secondary":          { "value": "#1E3A5F", "cssVar": "--color-secondary",          "use": "Steel blue (reserved / optional accent)" },
+    "accent":             { "value": "#E4002B", "cssVar": "--color-accent",             "use": "Brand red: primary CTAs, links, active states" },
+    "accentHover":        { "value": "#C40025", "cssVar": "--color-accent-hover",       "use": "Hover state for red CTAs" },
+    "accentForeground":   { "value": "#FFFFFF", "cssVar": "--color-accent-foreground",  "use": "Text/icon on red" },
+    "background":         { "value": "#FFFFFF", "cssVar": "--color-background",         "use": "Page background" },
+    "surface":            { "value": "#F8FAFC", "cssVar": "--color-surface",            "use": "Light section background (alternating)" },
+    "surfaceMuted":       { "value": "#F1F5F9", "cssVar": "--color-surface-muted",      "use": "Secondary surface / chips" },
+    "border":             { "value": "#E2E8F0", "cssVar": "--color-border",             "use": "Hairline borders, card outlines" },
+    "text":               { "value": "#0F172A", "cssVar": "--color-text",               "use": "Primary body text / headings" },
+    "textMuted":          { "value": "#64748B", "cssVar": "--color-text-muted",         "use": "Secondary text, descriptions" },
+    "textSubtle":         { "value": "#94A3B8", "cssVar": "--color-text-subtle",        "use": "Tertiary text, meta, dates" },
+    "textInverse":        { "value": "#FFFFFF", "cssVar": "--color-text-inverse",       "use": "Text on dark backgrounds" },
+    "cmyk": {
+      "cyan":    { "value": "#00C2FF", "cssVar": "--color-cmyk-cyan",    "use": "CMYK accent bar + gradient (also tech overline on dark)" },
+      "magenta": { "value": "#FF1FB4", "cssVar": "--color-cmyk-magenta", "use": "CMYK accent bar + gradient" },
+      "yellow":  { "value": "#FFD400", "cssVar": "--color-cmyk-yellow",  "use": "CMYK accent bar + gradient" },
+      "key":     { "value": "#0F172A", "cssVar": "--color-cmyk-key",     "use": "CMYK accent bar (K)" }
+    }
+  },
+
+  "typography": {
+    "fontFamily": {
+      "display": { "value": "Space Grotesk, Inter, sans-serif", "cssVar": "--font-display", "use": "Headings, numbers, buttons" },
+      "body":    { "value": "Inter, sans-serif",                "cssVar": "--font-body",    "use": "Body copy, UI" }
+    },
+    "fontWeight": { "regular": 400, "medium": 500, "semibold": 600, "bold": 700, "extrabold": 800 },
+    "letterSpacing": { "widestOverline": "0.1em", "tracking-wide": "0.025em" },
+    "lineHeight": { "tight": 1.05, "snug": 1.25, "normal": 1.5, "relaxed": 1.65 },
+
+    "scale": {
+      "comment": "Fluid type sizes per Elementor breakpoint. mobile<=767 / tablet 768-1024 / desktop>1024.",
+      "display-1 (hero h1)":   { "mobile": "36px", "tablet": "48px", "desktop": "60px", "weight": 700, "family": "display", "lineHeight": 1.05 },
+      "display-2 (page h1)":   { "mobile": "32px", "tablet": "40px", "desktop": "48px", "weight": 700, "family": "display", "lineHeight": 1.1 },
+      "h2 (section title)":    { "mobile": "28px", "tablet": "32px", "desktop": "36px", "weight": 700, "family": "display", "lineHeight": 1.15 },
+      "h3 (card title)":       { "mobile": "20px", "tablet": "22px", "desktop": "24px", "weight": 600, "family": "display", "lineHeight": 1.2 },
+      "h4 (subtitle)":         { "mobile": "18px", "tablet": "18px", "desktop": "20px", "weight": 600, "family": "display", "lineHeight": 1.25 },
+      "lead (intro)":          { "mobile": "17px", "tablet": "18px", "desktop": "20px", "weight": 400, "family": "body", "lineHeight": 1.6 },
+      "body":                  { "mobile": "15px", "tablet": "16px", "desktop": "16px", "weight": 400, "family": "body", "lineHeight": 1.65 },
+      "small":                 { "mobile": "13px", "tablet": "14px", "desktop": "14px", "weight": 400, "family": "body", "lineHeight": 1.5 },
+      "overline (eyebrow)":    { "mobile": "12px", "tablet": "12px", "desktop": "13px", "weight": 600, "family": "body", "lineHeight": 1.4, "transform": "uppercase", "letterSpacing": "0.1em" },
+      "stat-number":           { "mobile": "36px", "tablet": "44px", "desktop": "48px", "weight": 700, "family": "display", "lineHeight": 1 }
+    }
+  },
+
+  "breakpoints": {
+    "comment": "Aligned to Elementor. Tailwind md(768)/lg(1024) already match tablet/desktop edges; sm(640) kept as internal refinement.",
+    "mobile":  { "max": "767px" },
+    "tablet":  { "min": "768px", "max": "1024px" },
+    "desktop": { "min": "1025px" },
+    "tailwindReference": { "sm": "640px", "md": "768px", "lg": "1024px", "xl": "1280px" }
+  },
+
+  "radius": {
+    "sm":   { "value": "0.5rem",  "cssVar": "--radius-sm",   "tailwind": "rounded-lg" },
+    "md":   { "value": "0.75rem", "cssVar": "--radius-md",   "tailwind": "rounded-xl" },
+    "lg":   { "value": "1rem",    "cssVar": "--radius-lg",   "tailwind": "rounded-2xl" },
+    "xl":   { "value": "1.5rem",  "cssVar": "--radius-xl",   "tailwind": "rounded-3xl" },
+    "pill": { "value": "9999px",  "cssVar": "--radius-pill", "tailwind": "rounded-full / rounded-pill" }
+  },
+
+  "spacing": {
+    "comment": "Base 4px scale (Tailwind). Section rhythm tokens below.",
+    "sectionY":     { "value": "6rem",   "cssVar": "--space-section-y",    "tailwind": "py-24", "tabletMobile": "mobile py-16 / tablet py-20" },
+    "sectionYSmall":{ "value": "4rem",   "cssVar": "--space-section-y-sm", "tailwind": "py-16" },
+    "containerX":   { "value": "1.5rem", "cssVar": "--space-container-x",  "tailwind": "px-6" },
+    "containerMax": { "value": "1280px", "cssVar": "--container-max" },
+    "gridGap":      { "card": "1.75rem (gap-7)", "feature": "1.5rem (gap-6)" }
+  },
+
+  "shadow": {
+    "sm":    { "value": "0 1px 2px rgba(15,23,42,0.06)",      "cssVar": "--shadow-sm",   "tailwind": "shadow-sm" },
+    "card":  { "value": "0 1px 3px rgba(15,23,42,0.08)",      "cssVar": "--shadow-card", "tailwind": "shadow-card" },
+    "nav":   { "value": "0 2px 20px -8px rgba(15,23,42,0.25)","cssVar": "--shadow-nav",  "tailwind": "shadow-nav" },
+    "lift":  { "value": "0 24px 48px -18px rgba(15,23,42,0.28)","cssVar": "--shadow-lift","tailwind": "shadow-lift (hover)" },
+    "modal": { "value": "0 24px 60px -12px rgba(0,0,0,0.5)",  "cssVar": "--shadow-modal","tailwind": "shadow-modal" }
+  },
+
+  "gradients": {
+    "cmykBar":   { "value": "linear-gradient(90deg, #00C2FF 0 25%, #FF1FB4 25% 50%, #FFD400 50% 75%, #0F172A 75% 100%)", "use": "Thin 4px brand accent bar (top of navbar, accents)" },
+    "cmykText":  { "value": "linear-gradient(to right, #00C2FF, #FF1FB4, #FFD400)", "use": "Hero title accent (background-clip:text)" },
+    "heroOverlay": { "value": "linear-gradient(to bottom-right, #0B1120, rgba(11,17,32,0.85), rgba(11,17,32,0.6))", "use": "Dark overlay over hero photos" }
+  },
+
+  "motion": {
+    "durations": { "fast": "200ms", "base": "300ms", "slow": "700ms" },
+    "easing":    { "standard": "ease", "emphasized": "cubic-bezier(0.22,1,0.36,1)" },
+    "effects": {
+      "reveal":    "Fade + translateY(28px) -> 0 on scroll into view (IntersectionObserver, .reveal / .is-visible)",
+      "hoverLift": "translateY(-6px) + shadow-lift on cards (.hover-lift)",
+      "floaty":    "Hero image card gentle 6s vertical float (.animate-floaty)",
+      "marquee":   "Infinite horizontal scroll of partner logos 28s (.animate-marquee)",
+      "imageZoom": "Image scale(1.05-1.10) on card hover (700ms)",
+      "navbarState": "Transparent over hero -> solid white on scroll (IntersectionObserver sentinel)"
+    }
+  }
+}

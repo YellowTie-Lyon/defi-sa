@@ -9,10 +9,29 @@ module.exports = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        display: ['Space Grotesk', 'Inter', 'sans-serif'],
+        sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'sans-serif'],
+        body: ['Inter', 'sans-serif']
+      },
+      screens: {
+        // Elementor-aligned named breakpoints (added alongside Tailwind defaults
+        // sm:640 / md:768 / lg:1024 / xl:1280 which remain unchanged).
+        mobile: { max: '767px' },          // Elementor Mobile  (<= 767px)
+        tablet: { min: '768px', max: '1024px' }, // Elementor Tablet (768-1024px)
+        desktop: { min: '1025px' }         // Elementor Desktop (> 1024px)
+      },
+      boxShadow: {
+        card: 'var(--shadow-card)',
+        nav: 'var(--shadow-nav)',
+        lift: 'var(--shadow-lift)',
+        modal: 'var(--shadow-modal)'
+      },
       borderRadius: {
         lg: 'var(--radius)',
         md: 'calc(var(--radius) - 2px)',
-        sm: 'calc(var(--radius) - 4px)'
+        sm: 'calc(var(--radius) - 4px)',
+        pill: '9999px'
       },
       colors: {
         background: 'hsl(var(--background))',
@@ -26,20 +45,36 @@ module.exports = {
           foreground: 'hsl(var(--popover-foreground))'
         },
         primary: {
-          DEFAULT: 'hsl(var(--primary))',
-          foreground: 'hsl(var(--primary-foreground))'
+          DEFAULT: '#0F172A',
+          deep: '#0B1120',
+          foreground: '#F8FAFC'
         },
         secondary: {
-          DEFAULT: 'hsl(var(--secondary))',
-          foreground: 'hsl(var(--secondary-foreground))'
+          DEFAULT: '#1E3A5F',
+          foreground: '#F8FAFC'
         },
         muted: {
           DEFAULT: 'hsl(var(--muted))',
           foreground: 'hsl(var(--muted-foreground))'
         },
         accent: {
-          DEFAULT: 'hsl(var(--accent))',
-          foreground: 'hsl(var(--accent-foreground))'
+          DEFAULT: '#E4002B',
+          hover: '#C40025',
+          foreground: '#FFFFFF'
+        },
+        brand: {
+          cyan: '#00C2FF',
+          magenta: '#FF1FB4',
+          yellow: '#FFD400'
+        },
+        surface: {
+          DEFAULT: '#F8FAFC',
+          muted: '#F1F5F9'
+        },
+        ink: {
+          DEFAULT: '#0F172A',
+          muted: '#64748B',
+          subtle: '#94A3B8'
         },
         destructive: {
           DEFAULT: 'hsl(var(--destructive))',

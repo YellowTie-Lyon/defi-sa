@@ -52,20 +52,20 @@ const Navbar = () => {
   const linkClass = ({ isActive }) =>
     `relative text-sm font-medium tracking-wide transition-colors py-2 ${
       isActive
-        ? "text-[#E4002B]"
+        ? "text-accent"
         : solid
         ? "text-slate-700 hover:text-slate-900"
         : "text-white/85 hover:text-white"
     }`;
 
   return (
-    <header
+    <header data-section="navbar"
       style={{
         backgroundColor: solid ? "rgba(255, 255, 255, 0.92)" : "transparent",
       }}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         solid
-          ? "backdrop-blur-md shadow-[0_2px_20px_-8px_rgba(15,23,42,0.25)]"
+          ? "backdrop-blur-md shadow-nav"
           : ""
       }`}
     >
@@ -112,7 +112,7 @@ const Navbar = () => {
                     <Link
                       key={c.slug}
                       to={`/equipements/${c.slug}`}
-                      className="flex items-center justify-between px-3 py-2.5 rounded-lg text-sm text-slate-700 hover:bg-slate-50 hover:text-[#E4002B] transition-colors group"
+                      className="flex items-center justify-between px-3 py-2.5 rounded-lg text-sm text-slate-700 hover:bg-slate-50 hover:text-accent transition-colors group"
                     >
                       {pick(c.name)}
                       <ArrowUpRight size={15} className="opacity-0 group-hover:opacity-100 transition-opacity" />
@@ -139,8 +139,8 @@ const Navbar = () => {
               to="/contact"
               className={`inline-flex items-center gap-2 text-sm font-semibold px-5 py-2.5 rounded-full transition-colors duration-300 ${
                 solid
-                  ? "bg-[#0F172A] text-white hover:bg-[#E4002B]"
-                  : "bg-white text-[#0F172A] hover:bg-[#E4002B] hover:text-white"
+                  ? "bg-primary text-white hover:bg-accent"
+                  : "bg-white text-primary hover:bg-accent hover:text-white"
               }`}
             >
               {t("nav.quote")}
@@ -180,7 +180,7 @@ const Navbar = () => {
           <NavLink to="/actualites" className="py-2.5 text-slate-800 font-medium">{t("nav.news")}</NavLink>
           <NavLink to="/a-propos" className="py-2.5 text-slate-800 font-medium">{t("nav.about")}</NavLink>
           <NavLink to="/contact" className="py-2.5 text-slate-800 font-medium">{t("nav.contact")}</NavLink>
-          <a href={BROCHURE_URL} target="_blank" rel="noreferrer" className="mt-2 inline-flex items-center justify-center gap-2 bg-[#0F172A] text-white font-semibold px-5 py-3 rounded-full">
+          <a href={BROCHURE_URL} target="_blank" rel="noreferrer" className="mt-2 inline-flex items-center justify-center gap-2 bg-primary text-white font-semibold px-5 py-3 rounded-full">
             {t("nav.brochure")}
           </a>
         </div>

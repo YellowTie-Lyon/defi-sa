@@ -18,7 +18,7 @@ const Footer = () => {
   };
 
   return (
-    <footer className="bg-[#0B1120] text-slate-300 relative overflow-hidden">
+    <footer data-section="site-footer" className="bg-primary-deep text-slate-300 relative overflow-hidden">
       <div className="absolute inset-0 grid-lines opacity-[0.06] pointer-events-none" />
       <div className="defi-container relative pt-16 pb-8">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
@@ -29,8 +29,8 @@ const Footer = () => {
             </div>
             <p className="text-sm leading-relaxed text-slate-400 max-w-xs">{t("footer.tagline")}</p>
             <div className="flex gap-3 mt-5">
-              <a href="#" className="w-9 h-9 rounded-full bg-white/5 hover:bg-[#E4002B] flex items-center justify-center transition-colors"><Linkedin size={16} /></a>
-              <a href="#" className="w-9 h-9 rounded-full bg-white/5 hover:bg-[#E4002B] flex items-center justify-center transition-colors"><Facebook size={16} /></a>
+              <a href="#" className="w-9 h-9 rounded-full bg-white/5 hover:bg-accent flex items-center justify-center transition-colors"><Linkedin size={16} /></a>
+              <a href="#" className="w-9 h-9 rounded-full bg-white/5 hover:bg-accent flex items-center justify-center transition-colors"><Facebook size={16} /></a>
             </div>
           </div>
 
@@ -61,9 +61,9 @@ const Footer = () => {
           <div>
             <h4 className="text-white font-semibold mb-4 text-sm uppercase tracking-wider">{t("footer.contactTitle")}</h4>
             <ul className="space-y-3 text-sm">
-              <li className="flex gap-3"><MapPin size={17} className="text-[#E4002B] shrink-0 mt-0.5" /><span>{contactInfo.address}</span></li>
-              <li className="flex gap-3"><Phone size={17} className="text-[#E4002B] shrink-0 mt-0.5" /><a href={`tel:${contactInfo.phone}`} className="hover:text-white">{contactInfo.phone}</a></li>
-              <li className="flex gap-3"><Mail size={17} className="text-[#E4002B] shrink-0 mt-0.5" /><a href={`mailto:${contactInfo.email}`} className="hover:text-white">{contactInfo.email}</a></li>
+              <li className="flex gap-3"><MapPin size={17} className="text-accent shrink-0 mt-0.5" /><span>{contactInfo.address}</span></li>
+              <li className="flex gap-3"><Phone size={17} className="text-accent shrink-0 mt-0.5" /><a href={`tel:${contactInfo.phone}`} className="hover:text-white">{contactInfo.phone}</a></li>
+              <li className="flex gap-3"><Mail size={17} className="text-accent shrink-0 mt-0.5" /><a href={`mailto:${contactInfo.email}`} className="hover:text-white">{contactInfo.email}</a></li>
             </ul>
             <form onSubmit={submit} className="mt-5">
               <p className="text-xs text-slate-400 mb-2">{t("footer.newsletter")}</p>
@@ -73,9 +73,9 @@ const Footer = () => {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder={t("footer.newsletterPlaceholder")}
-                  className="flex-1 min-w-0 bg-white/5 border border-white/10 rounded-l-lg px-3 py-2.5 text-sm text-white placeholder:text-slate-500 focus:outline-none focus:border-[#E4002B]"
+                  className="flex-1 min-w-0 bg-white/5 border border-white/10 rounded-l-lg px-3 py-2.5 text-sm text-white placeholder:text-slate-500 focus:outline-none focus:border-accent"
                 />
-                <button type="submit" className="bg-[#E4002B] hover:bg-[#c40025] rounded-r-lg px-3.5 flex items-center justify-center transition-colors">
+                <button type="submit" className="bg-accent hover:bg-accent-hover rounded-r-lg px-3.5 flex items-center justify-center transition-colors">
                   <ArrowRight size={17} className="text-white" />
                 </button>
               </div>

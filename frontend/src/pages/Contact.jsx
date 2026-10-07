@@ -31,11 +31,11 @@ const Contact = () => {
     { icon: Clock, label: t("contact.hours"), value: t("contact.hoursValue") },
   ];
 
-  const inputCls = "w-full bg-white border border-slate-200 rounded-lg px-4 py-3 text-sm text-slate-800 placeholder:text-slate-400 focus:outline-none focus:border-[#E4002B] focus:ring-2 focus:ring-[#E4002B]/10 transition";
+  const inputCls = "w-full bg-white border border-slate-200 rounded-lg px-4 py-3 text-sm text-slate-800 placeholder:text-slate-400 focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/10 transition";
 
   return (
     <div>
-      <section className="bg-[#0B1120] text-white relative overflow-hidden pt-[74px]">
+      <section data-section="contact-hero" className="bg-primary-deep text-white relative overflow-hidden pt-[74px]">
         <div className="absolute inset-0 grid-lines opacity-[0.07]" />
         <div className="defi-container relative py-20">
           <h1 className="font-display text-4xl lg:text-5xl font-bold">{t("contact.hero")}</h1>
@@ -43,17 +43,17 @@ const Contact = () => {
         </div>
       </section>
 
-      <section className="py-16 bg-slate-50">
+      <section data-section="contact-body" className="py-16 bg-slate-50">
         <div className="defi-container grid lg:grid-cols-5 gap-10">
           {/* info */}
           <div className="lg:col-span-2 reveal">
-            <h2 className="font-display text-2xl font-bold text-[#0F172A] mb-6">{t("contact.infoTitle")}</h2>
+            <h2 className="font-display text-2xl font-bold text-primary mb-6">{t("contact.infoTitle")}</h2>
             <div className="space-y-4">
               {info.map((it, i) => {
                 const Icon = it.icon;
                 return (
                   <div key={i} className="flex gap-4 bg-white rounded-xl p-5 border border-slate-100">
-                    <div className="w-11 h-11 rounded-lg bg-[#0F172A] flex items-center justify-center shrink-0">
+                    <div className="w-11 h-11 rounded-lg bg-primary flex items-center justify-center shrink-0">
                       <Icon size={20} className="text-white" />
                     </div>
                     <div>
@@ -108,7 +108,7 @@ const Contact = () => {
               <button
                 type="submit"
                 disabled={sending}
-                className="mt-6 inline-flex items-center gap-2 bg-[#E4002B] hover:bg-[#c40025] disabled:opacity-70 text-white font-semibold px-7 py-3.5 rounded-full transition-colors"
+                className="mt-6 inline-flex items-center gap-2 bg-accent hover:bg-accent-hover disabled:opacity-70 text-white font-semibold px-7 py-3.5 rounded-full transition-colors"
               >
                 {sending ? t("contact.formSending") : t("contact.formSend")}
                 <Send size={17} />
